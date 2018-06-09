@@ -1,3 +1,7 @@
+# Motivation
+
+Design my own syllabus for self-study during the program.
+
 # Week 1: Setup
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
@@ -42,7 +46,7 @@ _Resources_:
 
 1.  Learning song representations with [deep learning for structured data](http://www.fast.ai/2018/04/29/categorical-embeddings/)
 
-_Fun extra blog post #1_: Train an LSTM on song titles and something stodgy, like deep learning paper titles
+**Fun extra blog post #1**: Train an LSTM on song titles and something stodgy, like deep learning paper titles
 
 - Inspired by [‘AI scream for ice cream’](http://aiweirdness.com/post/173797162852/ai-scream-for-ice-cream) (aiweirdness generating metal band ice cream flavors)
 - Related posts: [AIWeirdness: 'Generated ice cream flavors: now it’s my turn'](http://aiweirdness.com/post/173990761332/generated-ice-cream-flavors-now-its-my-turn); [Kottke: ‘Ask an Ice Cream Professional’](https://kottke.org/18/05/ask-an-ice-cream-professional-ai-generated-ice-cream-flavors); [Janelle’s Twitter thread on it](https://twitter.com/JanelleCShane/status/997190921958473729)
@@ -138,7 +142,7 @@ _Optional_:
 1.  Jaques, N., Gu, S., Bahdanau, D., Hernández-Lobato, J. M., Turner, R. E., Eck, D. _Tuning Recurrent Neural Networks with Reinforcement Learning_ [[blog](https://magenta.tensorflow.org/2016/11/09/tuning-recurrent-networks-with-reinforcement-learning/), [paper](https://arxiv.org/abs/1611.02796)]
 2.  Arulkumaran, K., Deisenroth, M. P., Brundage, M., Bharath, A. A. _A Brief Survey of Deep Reinforcement Learning_. [[paper](https://arxiv.org/abs/1708.05866)]
 
-_Fun extra blog post #2_: could digest Goldberg’s argument for why the “Adversarial Generation of Natural Language” paper isn’t worthwhile
+**Fun extra blog post #2**: could digest Goldberg’s argument for why the “Adversarial Generation of Natural Language” paper isn’t worthwhile
 
 - There was a bit of a [tweetstorm](https://twitter.com/yoavgo/status/872831207163265024) (that turned into a [blog post](https://medium.com/@yoav.goldberg/an-adversarial-review-of-adversarial-generation-of-natural-language-409ac3378bd7)) around Yoav Goldberg and his argument for why this "[Adversarial Generation of Natural Language](https://arxiv.org/abs/1705.10929)" paper is garbage, and why he is generally upset about deep learning practitioners coming to natural language and thinking they can “solve” it (particularly with GANs). Might be interesting to digest the debate in a blog post.
 - Related posts: post comments like [Hu's](https://medium.com/@zhitinghu/we-thank-yoav-for-the-comments-on-our-vae-generation-paper-titled-as-controllable-text-generation-73d8c8058bb6) and [Bahdanau's](https://medium.com/@dzmitrybahdanau/in-general-i-dont-want-to-participate-in-public-holy-wars-so-i-will-make-just-two-points-7f41e075e81e); Goldberg’s [clarifications](https://medium.com/@yoav.goldberg/clarifications-re-adversarial-review-of-adversarial-learning-of-nat-lang-post-62acd39ebe0d); Yann LeCun’s [response](https://www.facebook.com/yann.lecun/posts/10154498539442143) to Goldberg; Goldberg’s [response](https://medium.com/@yoav.goldberg/a-response-to-yann-lecuns-response-245125295c02) to LeCun
