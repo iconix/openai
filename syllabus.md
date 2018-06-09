@@ -6,6 +6,8 @@ Design my own syllabus for self-study during the program.
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
 
+[[June 8 blog post](https://iconix.github.io/career/2018/06/08/scholar-week1.html)]
+
 _Resources_:
 
 1.  [_Deep Learning_](https://www.deeplearningbook.org/) book, chapter 5 (machine learning basics)
