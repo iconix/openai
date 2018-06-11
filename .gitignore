@@ -1,3 +1,7 @@
-hypem_explore.ipynb
-datasets/private
 .ipynb_checkpoints
+
+__pycache__
+
+datasets/private
+
+hypem_explore.ipynb

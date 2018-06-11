@@ -1,0 +1,26 @@
+[
+    {
+        "friendly_name": "epicurious (test DOM scrape)",
+        "index_url": "https://www.epicurious.com/search?content=recipe",
+        "pagination": {
+            "type": "query_param",
+            "query_param": "&page=",
+            "last_page": 2
+        },
+        "href_selector": ".recipe-content-card a[itemprop=\"url\"]",
+        "content_selectors": [
+            "div[itemprop=\"description\"]",
+            "div[itemprop=\"recipeInstructions\"] .preparation-groups"
+        ]
+    }, {
+        "friendly_name": "bbc good food",
+        "index_url": "https://www.bbcgoodfood.com/search/recipes",
+        "pagination": {
+            "type": "query_param",
+            "query_param": "#page=",
+            "first_page": 0,
+            "last_page": 1
+        },
+        "href_selector": ".teaser-item__title > a"
+    }
+]
