@@ -24,16 +24,16 @@ _Note_: No content will be returned from the above example: the AugmentationAPI 
 
 `time_machine`:
 
-    python hypem.py time_machine <hypem_key> --request_rate=1 --out_file=time_machine_5yrs.json --days_from_start=1825
+    python -u hypem.py time_machine <hypem_key> --request_rate=1 --out_file=time_machine_5yrs.json --days_from_start=1825
 
 `song_blogs`:
 
-    python hypem.py song_blogs time_machine_5yrs.json --request_rate=2 --out_file=song_blogs_5yrs.json --num_processes=4
+    python -u hypem.py song_blogs time_machine_5yrs.json --request_rate=2 --out_file=song_blogs_5yrs.json --num_processes=4
 
 `extern_song_ids`:
 
-    python hypem.py extern_song_ids cleaned_songlist_sample.json --spotify_token=<spotify_token> --genius_token=<genius_token> --request_rate=3 --out_file=songids_sample.json
+    python -u hypem.py extern_song_ids cleaned_songlist_sample.json --spotify_token=<spotify_token> --genius_token=<genius_token> --request_rate=3 --out_file=songids_sample.json
 
 `article`:
 
-    python hypem.py article bloglist_sample.json <mercury_key> --request_rate=8 --out_file=blog_content_sample.json --num_processes=8
+    python -u hypem.py article bloglist_sample.json <mercury_key> --request_rate=8 --out_file=blog_content_sample.json --num_processes=8

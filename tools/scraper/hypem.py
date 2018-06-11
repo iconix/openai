@@ -10,6 +10,7 @@ import scraper
 import string
 import sys
 from urllib.parse import quote
+import utils
 
 def article(bloglist_file, api_key, request_rate=0.25, out_file=None, num_processes=1):
     '''Scrape article content of the URLs provided using the Mercury Web Parser (https://mercury.postlight.com/web-parser/).
@@ -18,7 +19,7 @@ def article(bloglist_file, api_key, request_rate=0.25, out_file=None, num_proces
     bloglist_df.columns = ['url']
 
     parser_urls = [_construct_mercury_parser_url(url) for url in bloglist_df.url]
-    results = _run_multi(request_rate, parser_urls, num_processes, api_key=api_key)
+    results = _run_multi(request_rate, parser_urls, num_processes, api_key=api_key, res_callback=_handle_article_response)
 
     DetectorFactory.seed = 0 # enforce consistent language detection
 
@@ -67,7 +68,7 @@ def article(bloglist_file, api_key, request_rate=0.25, out_file=None, num_proces
     if out_file is not None:
         updated_results_df.to_json(out_file, orient='records')
     else:
-        print(updated_results_df)
+        print(updated_results_df.to_json(orient='records'))
 
 def extern_song_ids(hypem_songlist_file, spotify_token=None, genius_token=None, request_rate=0.25, out_file=None, num_processes=1):
     songlist_df = pd.read_json(hypem_songlist_file)
@@ -89,7 +90,7 @@ def extern_song_ids(hypem_songlist_file, spotify_token=None, genius_token=None, 
 
         # TODO: num_processes > 1 == AssertionError: daemonic processes are not allowed to have children
         print(f'Executing Spotify and Genius scrapes in parallel')
-        async_results = [pool.apply_async(_run_multi, (request_rate, urls, num_processes, None, bearer_token)) \
+        async_results = [pool.apply_async(_run_multi, (request_rate, urls, num_processes, None, bearer_token, _handle_response)) \
             for urls, bearer_token in parallel_params]
         pool_results = []
         for res in async_results:
@@ -100,9 +101,9 @@ def extern_song_ids(hypem_songlist_file, spotify_token=None, genius_token=None, 
         spotify_res = pool_results[0]
         genius_res = pool_results[1]
     elif spotify_token is not None:
-        spotify_res = _run_multi(request_rate, spotify_search_urls, num_processes, bearer_token=spotify_token)
+        spotify_res = _run_multi(request_rate, spotify_search_urls, num_processes, bearer_token=spotify_token, res_callback=_handle_response)
     elif genius_token is not None:
-        genius_res = _run_multi(request_rate, genius_search_urls, num_processes, bearer_token=genius_token)
+        genius_res = _run_multi(request_rate, genius_search_urls, num_processes, bearer_token=genius_token, res_callback=_handle_response)
     else:
         print(f'[ERROR] At least one token must be provided: spotify_token or genius_token')
         sys.exit()
@@ -149,7 +150,7 @@ def extern_song_ids(hypem_songlist_file, spotify_token=None, genius_token=None, 
     if out_file is not None:
         result_df.to_json(out_file, orient='records')
     else:
-        print(result_df)
+        print(result_df.to_json(orient='records'))
 
 def song_blogs(tm_out_file, request_rate=0.25, out_file=None, num_processes=1):
     tm_df = pd.read_json(tm_out_file)
@@ -164,14 +165,14 @@ def song_blogs(tm_out_file, request_rate=0.25, out_file=None, num_processes=1):
     item_ids = list(item_ids) # order
     song_blogs_urls = [_construct_song_blogs_url(item_id) for item_id in item_ids]
 
-    blogs = _run_multi(request_rate, song_blogs_urls, num_processes)
+    blogs = _run_multi(request_rate, song_blogs_urls, num_processes, res_callback=_handle_response)
 
     result_df = pd.DataFrame({'itemid': item_ids, 'blogs': blogs})
 
     if out_file is not None:
         result_df.to_json(out_file, orient='records')
     else:
-        print(result_df)
+        print(result_df.to_json(orient='records'))
 
 def time_machine(api_key, start_date=datetime.now(), end_date=datetime.now()-timedelta(days=14), days_from_start=None, request_rate=0.25, out_file=None, num_processes=1):
     date_format = '%b-%d-%Y' # May-27-2018
@@ -202,14 +203,14 @@ def time_machine(api_key, start_date=datetime.now(), end_date=datetime.now()-tim
 
     time_machine_urls = [_construct_time_machine_url(wk) for wk in weeks]
     key_param = f'?key={api_key}' if api_key is not None else None
-    songs = _run_multi(request_rate, time_machine_urls, num_processes, query_params=key_param)
+    songs = _run_multi(request_rate, time_machine_urls, num_processes, query_params=key_param, res_callback=_handle_response)
 
     result_df = pd.DataFrame({'popular_week': weeks, 'songs': songs})
 
     if out_file is not None:
         result_df.to_json(out_file, orient='records')
     else:
-        print(result_df)
+        print(result_df.to_json(orient='records'))
 
 def _construct_mercury_parser_url(url):
     return f'https://mercury.postlight.com/parser?url={url}'
@@ -275,6 +276,68 @@ def _get_song_query(title, artist):
 
     return f'{title} {artist}'
 
+def _handle_response(res, url, remaining_count, rrl):
+    if res.status_code != 200:
+        print(f'[WARNING] request to {url} not successful: {res} {res.text}')
+        if res.status_code == 401:
+            print(f'[WARNING] request token expired or invalid - abandoning scrape')
+            return [[] for i in range(remaining_count)]
+
+        parsed_res = []
+    else:
+        try:
+            parsed_res = res.json()
+        except Exception as e:
+            print(f'[WARNING] Exception thrown on res.json() for {url}; {res.text} - skipping')
+            parsed_res = []
+
+    return parsed_res
+
+def _handle_article_response(res, url, remaining_count, rrl):
+    if res.status_code != 200:
+        print(f'[WARNING] request to {url} not successful: {res} {res.text}')
+        if res.status_code == 401:
+            print(f'[WARNING] request token expired or invalid - abandoning scrape')
+            return [[] for i in range(remaining_count)]
+
+        if res.status_code == 502:
+            try:
+                url = res.request.url
+
+                url_param = 'url='
+                idx = url.find(url_param) + len(url_param)
+                url = url[:idx] + 'https://web.archive.org/web/1000/' + url[idx:]
+
+                request_url = url
+                #print(f'[DEBUG:502] make_rate_limited_request: {request_url}; {utils.RequestVerb.GET}; {res.request.headers}')
+                res = rrl.make_rate_limited_request(request_url, utils.RequestVerb.GET, headers=res.request.headers)
+            except Exception as e:
+                print(f'[WARNING:502] Exception thrown - skipping {url}')
+                print(e)
+                return []
+
+            if res.status_code != 200:
+                print(f'[WARNING:502] request to {url} not successful: {res} {res.text}')
+                if res.status_code == 401:
+                    print(f'[WARNING:502] request token expired or invalid - abandoning scrape')
+                    return [[] for i in range(remaining_count)]
+            else:
+                try:
+                    return res.json()
+                except Exception as e:
+                    print(f'[WARNING:502] Exception thrown on res.json() for {url}; {res.text} - skipping')
+                    return []
+
+        parsed_res = []
+    else:
+        try:
+            parsed_res = res.json()
+        except Exception as e:
+            print(f'[WARNING] Exception thrown on res.json() for {url}; {res.text} - skipping')
+            parsed_res = []
+
+    return parsed_res
+
 def _remove_matches_without_words(target_str, regex, words):
     ''' e.g., TODO: doctest
         target_str = Bad Things feat. Killer Mike (of Run The Jewels) (Official Remix) (Jumanji edition)
@@ -299,7 +362,7 @@ def _remove_matches_without_words(target_str, regex, words):
 
     return target_str
 
-def _run_multi(request_rate, urls, num_processes, api_key=None, bearer_token=None, query_params=None):
+def _run_multi(request_rate, urls, num_processes, api_key=None, bearer_token=None, query_params=None, res_callback=None):
     headers = {}
     if bearer_token is not None:
         headers['Authorization'] = f'Bearer {bearer_token}'
@@ -307,7 +370,7 @@ def _run_multi(request_rate, urls, num_processes, api_key=None, bearer_token=Non
         headers['x-api-key'] = api_key
         headers['Content-Type'] = 'application/json'
 
-    s = scraper.HypeMScraper(request_rate, query_params=query_params, headers=headers if headers else None)
+    s = scraper.APIScraper(request_rate, query_params=query_params, headers=headers if headers else None, res_callback=res_callback)
 
     if num_processes < 1 or not isinstance(num_processes, int):
         raise ValueError('num_processes must be a positive integer')

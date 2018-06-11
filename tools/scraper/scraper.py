@@ -23,75 +23,46 @@ class Scraper(ABC):
     def run(self):
         pass
 
-class RecipeAPIScraper(Scraper):
-    '''Scrape recipe content of the URLs provided using ONAugmentation's recipe extraction API.
+class APIScraper(Scraper):
+    '''Get JSON content returned by the API
     '''
-    def __init__(self, request_rate):
-        super().__init__(request_rate)
+    def __init__(self, request_rate, request_verb=utils.RequestVerb.GET, query_params=None, headers=None, res_callback=None):
+        self.request_rate = request_rate
+        self.request_verb = request_verb
+        self.query_params = query_params
+        self.headers = headers
+        self.res_callback = res_callback
 
     def run(self, content_urls):
-        return self._call_api(content_urls)
-
-    def _call_api(self, content_urls):
         responses = []
         total = len(content_urls)
         count = 0
 
+        start = time.time()
         for url in content_urls:
-            api_url = self._construct_augmentation_url(url)
-
             rrl = utils.RequestRateLimiterFactory(self.request_rate)()
             if count is 0:
                 print(f'[WARNING] rate_limited _call_api(): max_per_Second:{self.request_rate}')
-            res = rrl.make_rate_limited_request(api_url, utils.RequestVerb.POST)
 
-            if res.status_code is not 200:
-                print(f'[WARNING] request to {url} not successful: {res}')
-                responses.append(None)
-                continue
-
-            response_text = res.text
-
-            response_json = json.loads(response_text)[0] # always a list of 1 object
-            content_model = response_json['ContentModel']
-            if content_model is not 0: # 0 is None
-                html = response_json['ContentInHtml']
-                html = self._strip_api_metadata(html)
-                h = html2text.HTML2Text()
-                h.ignore_links = True
-                content = h.handle(html)
-
-                if content_model is not 4: # 4 is Recipe
-                    print(f'[WARNING] {url} content extracted using non-recipe model ({content_model})')
-            else:
-                content = None
+            try:
+                request_url = f'{url}{self.query_params}' if self.query_params is not None else url
+                res = rrl.make_rate_limited_request(request_url, self.request_verb, headers=self.headers)
+                # TODO: how to pass in the right callback parameters
+                parsed_res = self.res_callback(res, url, total-count, rrl)
+            except Exception as e:
+                # TODO: could provide 'skip' vs 'abandon' option for exceptions
+                print(f'[WARNING] Exception thrown - skipping {url}')
+                print(e)
+                parsed_res = []
 
             count += 1
+            responses.append(parsed_res)
             utils.print_progress(count, total, urlparse(url).hostname)
 
-            responses.append(content)
+        end = time.time()
+        print(f'{sum([len(res) for res in responses])} items scraped from {count} urls in {end-start:.2f}s.')
 
         return responses
-
-    def _construct_augmentation_url(self, url):
-        return f'https://www.onenote.com/onaugmentation/clipperextract/v1.0/?renderMethod=extractAggressive&url={url}&lang=en-US'
-
-    def _strip_api_metadata(self, html):
-        soup = BeautifulSoup(html, "html.parser")
-
-        for metadata in soup.select('.Metadata'):
-            metadata.decompose()
-
-        for thumbnail in soup.select('.Thumbnail'):
-            thumbnail.decompose()
-
-        for header in soup.select('.IngredientsContainer h2'):
-            header.decompose()
-
-        for header in soup.select('.InstructionsContainer h2'):
-            header.decompose()
-
-        return str(soup)
 
 class DOMScraper(Scraper):
     '''Scrape content from the DOM of the URLs provided.
@@ -120,99 +91,6 @@ class DOMScraper(Scraper):
 
         return content
 
-class HypeMScraper(Scraper):
-    '''Get JSON content returned by the API
-    '''
-    def __init__(self, request_rate, query_params=None, headers=None):
-        self.request_rate = request_rate
-        self.query_params = query_params
-        self.headers = headers
-
-    def run(self, content_urls):
-        responses = []
-        total = len(content_urls)
-        count = 0
-
-        start = time.time()
-        for url in content_urls:
-            rrl = utils.RequestRateLimiterFactory(self.request_rate)()
-            if count is 0:
-                print(f'[WARNING] rate_limited _call_api(): max_per_Second:{self.request_rate}')
-
-            try:
-                request_url = f'{url}{self.query_params}' if self.query_params is not None else url
-                res = rrl.make_rate_limited_request(request_url, utils.RequestVerb.GET, headers=self.headers)
-            except Exception as e:
-                # TODO: could provide 'skip' vs 'abandon' option for exceptions
-                print(f'[WARNING] Exception thrown - skipping {url}')
-                print(e)
-                count += 1
-                responses.append([])
-                utils.print_progress(count, total, urlparse(url).hostname)
-                continue
-
-            if res.status_code != 200:
-                print(f'[WARNING] request to {url} not successful: {res} {res.text}')
-                if res.status_code == 401:
-                    print(f'[WARNING] request token expired or invalid - abandoning scrape')
-                    responses.extend([[] for i in range(total-count)])
-                    utils.print_progress(total, total, urlparse(url).hostname)
-                    break
-
-                if res.status_code == 502:
-                    # retry web archive (TODO: temporary - remove)
-                    try:
-                        url_param = 'url='
-                        idx = url.find(url_param) + len(url_param)
-                        url = url[:idx] + 'https://web.archive.org/web/1000/' + url[idx:]
-
-                        request_url = f'{url}{self.query_params}' if self.query_params is not None else url
-                        #print(f'[DEBUG:2] make_rate_limited_request: {request_url}; {utils.RequestVerb.GET}; {self.headers}')
-                        res = rrl.make_rate_limited_request(request_url, utils.RequestVerb.GET, headers=self.headers)
-                    except Exception as e:
-                        print(f'[WARNING:2] Exception thrown - skipping {url}')
-                        print(e)
-                        count += 1
-                        responses.append([])
-                        utils.print_progress(count, total, urlparse(url).hostname)
-                        continue
-
-                    if res.status_code != 200:
-                        print(f'[WARNING:2] request to {url} not successful: {res} {res.text}')
-                        if res.status_code == 401:
-                            print(f'[WARNING:2] request token expired or invalid - abandoning scrape')
-                            responses.extend([[] for i in range(total-count)])
-                            utils.print_progress(total, total, urlparse(url).hostname)
-                            break
-                    else:
-                        count += 1
-                        try:
-                            responses.append(res.json())
-                        except Exception as e:
-                            print(f'[WARNING:2] Exception thrown on res.json() for {url}; {res.text} - skipping')
-                            responses.append([])
-                        utils.print_progress(count, total, urlparse(url).hostname)
-                        continue
-
-                count += 1
-                responses.append([])
-                utils.print_progress(count, total, urlparse(url).hostname)
-                continue
-
-            count += 1
-            try:
-                responses.append(res.json())
-            except Exception as e:
-                print(f'[WARNING] Exception thrown on res.json() for {url}; {res.text} - skipping')
-                responses.append([])
-
-            utils.print_progress(count, total, urlparse(url).hostname)
-
-        end = time.time()
-        print(f'{sum([len(res) for res in responses])} items scraped from {count} urls in {end-start:.2f}s.')
-
-        return responses
-
 class IndexScraper(Scraper):
     '''Scrape URLs from the site index using selectors.
     '''
@@ -239,13 +117,18 @@ class IndexScraper(Scraper):
             index_urls = self._parse_pagination_options(index_url, pagination_options)
 
         content_urls = []
+        total = len(index_urls)
+        count = 0
+
         for i_url in index_urls:
             soup = utils.Soup.url_to_soup(i_url, self.request_rate)
             if soup is None:
                 print(f'[WARNING] No content urls found for {i_url}')
-                continue
             else:
                 content_urls.extend(utils.Soup.soup_to_index(i_url, soup, href_selector))
+
+            count += 1
+            utils.print_progress(count, total, urlparse(i_url).hostname)
 
         return content_urls
 
@@ -300,7 +183,7 @@ class Pipeline(object):
         if self.scrape_method is ContentScrapeMethod.DOM:
             self.scrape_content = DOMScraper(self.request_rate)
         elif self.scrape_method is ContentScrapeMethod.RecipeAPI:
-            self.scrape_content = RecipeAPIScraper(self.request_rate)
+            self.scrape_content = APIScraper(self.request_rate, request_verb=utils.RequestVerb.POST, res_callback=self._handle_augmentation_response)
         else:
             print(f'[ERROR] \'self.scrape_method\' not set or invalid ({self.scrape_method})')
             sys.exit()
@@ -351,6 +234,46 @@ class Pipeline(object):
 
     def _construct_augmentation_url(self, url):
         return f'https://www.onenote.com/onaugmentation/clipperextract/v1.0/?renderMethod=extractAggressive&url={url}&lang=en-US'
+
+    def _handle_augmentation_response(self, res, url, remaining_count, rrl):
+        if res.status_code is not 200:
+            print(f'[WARNING] request to {url} not successful: {res}')
+            return None
+
+        response_text = res.text
+
+        response_json = json.loads(response_text)[0] # always a list of 1 object
+        content_model = response_json['ContentModel']
+        if content_model is not 0: # 0 is None
+            html = response_json['ContentInHtml']
+            html = self._strip_api_metadata(html)
+            h = html2text.HTML2Text()
+            h.ignore_links = True
+            content = h.handle(html)
+
+            if content_model is not 4: # 4 is Recipe
+                print(f'[WARNING] {url} content extracted using non-recipe model ({content_model})')
+        else:
+            content = None
+
+        return content
+
+    def _strip_api_metadata(self, html):
+        soup = BeautifulSoup(html, "html.parser")
+
+        for metadata in soup.select('.Metadata'):
+            metadata.decompose()
+
+        for thumbnail in soup.select('.Thumbnail'):
+            thumbnail.decompose()
+
+        for header in soup.select('.IngredientsContainer h2'):
+            header.decompose()
+
+        for header in soup.select('.InstructionsContainer h2'):
+            header.decompose()
+
+        return str(soup)
 
     def _scrape_index(self, config_df):
         start = time.time()
