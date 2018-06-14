@@ -24,7 +24,7 @@ class Scraper(ABC):
         pass
 
 class APIScraper(Scraper):
-    '''Get JSON content returned by the API
+    '''Get JSON content returned by an API
     '''
     def __init__(self, request_rate, request_verb=utils.RequestVerb.GET, query_params=None, headers=None, res_callback=None):
         self.request_rate = request_rate
