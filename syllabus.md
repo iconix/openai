@@ -2,6 +2,8 @@
 
 Design my own syllabus for self-study during the program.
 
+## _themes_: techniques in generative text; learning song representations; language/sequence modeling enhanced by reinforcement learning or GANs
+
 # Week 1: Setup
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
@@ -31,14 +33,17 @@ _Resources_:
 
 1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapters 10 (sequence modeling) and 11 (practical methodology)
 2.  Graves, A. (2013). _Generating sequences with recurrent neural networks_. [[paper](https://arxiv.org/abs/1308.0850)]
-3.  PyTorch: Generating Names with a Character-Level RNN [[tutorial](https://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html)]
-4.  Karpathy, A. (2015). _Visualizing and Understanding Recurrent Networks_. [[video](https://skillsmatter.com/skillscasts/6611-visualizing-and-understanding-recurrent-networks)]
+3.  Merity, S., Keskar, N. S., Socher, R. _Regularizing and Optimizing LSTM Language Models_. [[paper](https://arxiv.org/abs/1708.02182)] [[code](https://github.com/salesforce/awd-lstm-lm)]
+4.  PyTorch: Generating Names with a Character-Level RNN [[tutorial](https://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html)]
+5.  Deep Learning for NLP with PyTorch [[tutorial](https://pytorch.org/tutorials/beginner/deep_learning_nlp_tutorial.html)]
+6.  [_Natural Language Processing_](https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf) book (draft), chapter 6 (language models)
 
 _Optional_:
 
 1.  course.fast.ai lessons [6](http://course.fast.ai/lessons/lesson6.html) (rnns) + [7](http://course.fast.ai/lessons/lesson7.html) (grus, lstms)
-2.  Colah, C. (2014). _Deep Learning, NLP, and Representations_. [[blog](http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/)]
-3.  Bengio, Y. _A Neural Probabilistic Language Model_. [[blog](http://www.scholarpedia.org/article/Neural_net_language_models), [paper](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)]
+2.  Karpathy, A. (2015). _Visualizing and Understanding Recurrent Networks_. [[video](https://skillsmatter.com/skillscasts/6611-visualizing-and-understanding-recurrent-networks)] [[paper](https://arxiv.org/abs/1506.02078)]
+3.  Colah, C. (2014). _Deep Learning, NLP, and Representations_. [[blog](http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/)]
+4.  Bengio, Y. _A Neural Probabilistic Language Model_. [[blog](http://www.scholarpedia.org/article/Neural_net_language_models)] [[paper](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)]
 
 # Week 3: LSTMs, part 2
 
@@ -54,36 +59,26 @@ _Resources_:
 - Related posts: [AIWeirdness: 'Generated ice cream flavors: now it’s my turn'](http://aiweirdness.com/post/173990761332/generated-ice-cream-flavors-now-its-my-turn); [Kottke: ‘Ask an Ice Cream Professional’](https://kottke.org/18/05/ask-an-ice-cream-professional-ai-generated-ice-cream-flavors); [Janelle’s Twitter thread on it](https://twitter.com/JanelleCShane/status/997190921958473729)
 
 
-# Week 4: seq2seq, part 1
+# Week 4: seq2seq
 
-## Train a seq2seq model; compare to LSTM results
+## Train a seq2seq model with VAE loss; compare to LSTM results
 
 _Resources_:
 
-1.  Sutskever, I., Vinyals, O., and Le, Q. V. (2014). _Sequence to sequence learning with neural networks_. [[paper](https://arxiv.org/abs/1409.3215)]
-2.  PyTorch: Translation with a Sequence to Sequence Network and Attention [[tutorial](https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html)]
-3.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
+1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 14 (autoencoders)
+2.  Sutskever, I., Vinyals, O., and Le, Q. V. (2014). _Sequence to sequence learning with neural networks_. [[paper](https://arxiv.org/abs/1409.3215)]
+3.  PyTorch: Translation with a Sequence to Sequence Network and Attention [[tutorial](https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html)]
+4.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
+5.  Introduction to Variational Autoencoders [[video](https://youtu.be/9zKuYvjFFS8)]
+6.  Kingma, D.P., Welling, M. _Auto-Encoding Variational Bayes_. [[paper](https://arxiv.org/abs/1312.6114)]
 
 _Optional_:
 
 1.  How to summarize text and generate features using seq2seq models [[tutorial](https://towardsdatascience.com/how-to-create-data-products-that-are-magical-using-sequence-to-sequence-models-703f86a231f8)]
 2.  Bowman, S. R., Vilnis, L., Vinyals, O., Dai, A.M., Jozefowicz, R., Bengio, S. _Generating Sentences from a Continuous Space_. [[paper](https://arxiv.org/abs/1511.06349)]
+3.  OpenAI: Generative Models [[blog](https://blog.openai.com/generative-models/)]
 
-# Week 5: seq2seq, part 2
-
-## Add VAE loss to the seq2seq model
-
-_Resources_:
-
-1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 14 (autoencoders)
-2.  Introduction to Variational Autoencoders [[video](https://youtu.be/9zKuYvjFFS8)]
-3.  Kingma, D.P., Welling, M. _Auto-Encoding Variational Bayes_. [[paper](https://arxiv.org/abs/1312.6114)]
-
-_Optional_:
-
-1.  OpenAI: Generative Models [[blog](https://blog.openai.com/generative-models/)]
-
-# Week 6: Model interpretability, part 1
+# Week 5: Classification with Attention
 
 ## Adapt vanilla LSTM to do classification with attention + use to interpret what model has learned
 
@@ -95,36 +90,42 @@ _Resources_:
 
 _Optional_:
 
-1.  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., Polosukhin, I. _Attention Is All You Need_. [transformer [paper](https://arxiv.org/abs/1706.03762), [blog](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)]
+1.  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., Polosukhin, I. _Attention Is All You Need_. [transformer [paper](https://arxiv.org/abs/1706.03762)] [[blog](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)]
 2.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
 3.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
 
-# Week 7: Model interpretability, part 2
+# Week 6: Model interpretability, part 1
 
-## Compare attention-based method of interpretability to other more explicit methods...
+## Compare attention-based method of interpretability to other more explicit methods:
 
 - LIME/Anchor
 - Input gradients
 - Neural deletion
-- "Seeing what a neuron sees" à la visualizing section of [Karpathy's charRNN blog post](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
-
-## ...and study forms of bias in my model
-
-- Could start with selection bias from source text
-- Inspect embeddings and latent dimensions, à la  [David Ha's World Models](https://worldmodels.github.io/)
+- "Seeing what a neuron sees" à la Karpathy's char-rnn [[blog](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)] [[paper](https://arxiv.org/abs/1506.02078)]
 
 _Resources_:
 
 1.  Distill.pub: The Building Blocks of Interpretability [[blog](https://distill.pub/2018/building-blocks/)]
 2.  DeepMind: Understanding deep learning through neuron deletion [[blog](https://deepmind.com/blog/understanding-deep-learning-through-neuron-deletion/)]
-3.  World Models: Can agents learn inside of their own dreams? [[demo](https://worldmodels.github.io/)]
-4.  Hardt, M., Price, E., Srebro, N. _Equality of Opportunity in Supervised Learning_. [[paper](https://arxiv.org/abs/1610.02413)]
-5.  Ross, A. S., Hughes, M. C., Doshi-Velez, F. _Right for the Right Reasons: Training Differentiable Models by Constraining their Explanations_. [input gradients [paper](https://arxiv.org/abs/1703.03717)]
+3.  Ross, A. S., Hughes, M. C., Doshi-Velez, F. _Right for the Right Reasons: Training Differentiable Models by Constraining their Explanations_. [input gradients [paper](https://arxiv.org/abs/1703.03717)]
 
 _Optional_:
 
-1.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime), [paper](https://arxiv.org/abs/1602.04938)]
-2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor), [paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
+1.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime)] [[paper](https://arxiv.org/abs/1602.04938)]
+2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor)] [[paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
+
+# Week 7: Model interpretability, part 2
+
+## Study forms of bias in my models
+
+- Could start with selection bias from source text
+- Inspect embeddings and latent dimensions, à la  [David Ha's World Models](https://worldmodels.github.io/)
+
+_Resources_:
+1.  Hardt, M., Price, E., Srebro, N. _Equality of Opportunity in Supervised Learning_. [[paper](https://arxiv.org/abs/1610.02413)]
+2.  World Models: Can agents learn inside of their own dreams? [[demo](https://worldmodels.github.io/)]
+
+_Optional_:
 
 # Week 8: Advanced topics
 
@@ -141,7 +142,7 @@ _Resources_:
 
 _Optional_:
 
-1.  Jaques, N., Gu, S., Bahdanau, D., Hernández-Lobato, J. M., Turner, R. E., Eck, D. _Tuning Recurrent Neural Networks with Reinforcement Learning_ [[blog](https://magenta.tensorflow.org/2016/11/09/tuning-recurrent-networks-with-reinforcement-learning/), [paper](https://arxiv.org/abs/1611.02796)]
+1.  Jaques, N., Gu, S., Bahdanau, D., Hernández-Lobato, J. M., Turner, R. E., Eck, D. _Tuning Recurrent Neural Networks with Reinforcement Learning_ [[blog](https://magenta.tensorflow.org/2016/11/09/tuning-recurrent-networks-with-reinforcement-learning/)] [[paper](https://arxiv.org/abs/1611.02796)]
 2.  Arulkumaran, K., Deisenroth, M. P., Brundage, M., Bharath, A. A. _A Brief Survey of Deep Reinforcement Learning_. [[paper](https://arxiv.org/abs/1708.05866)]
 
 **Fun extra blog post #2**: could digest Goldberg’s argument for why the “Adversarial Generation of Natural Language” paper isn’t worthwhile
@@ -152,8 +153,6 @@ _Optional_:
 _Note that the Week 8 project will lead directly into my final (4-week) project!_
 
 # Final project ideas
-
-## _Themes_: techniques in generative text, learning song representations, language/sequence modeling enhanced by reinforcement learning or GANs
 
 ## Music blog review generation
 
