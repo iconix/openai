@@ -3,5 +3,6 @@
 __pycache__
 
 datasets/private
+nbs/fastai
 
 hypem_explore.ipynb
