@@ -2,6 +2,8 @@
 
 from bs4 import BeautifulSoup
 from enum import Enum, auto
+from multiprocessing import Pool
+import numpy as np
 from rate_limited import rate_limited
 import requests
 from sys import stdout
@@ -69,16 +71,16 @@ class Soup():
         return content_urls
 
     @staticmethod
-    def soup_to_content(url, soup, content_selectors):
+    def soup_to_content(url, soup, content_selectors, select_prop='text'):
         content = {}
 
         for selector in content_selectors:
             select = soup.select(selector)
             if len(select) > 0:
-                content[selector] = '\n'.join([s.text for s in select])
+                content[selector] = '\n'.join([s[select_prop] for s in select])
             else:
                 print(f'[WARNING] Failed to select content with selector {selector} for url {url}')
-                content[selector] = None
+                content[selector] = ''
 
         return '\n'.join(content.values())
 
@@ -105,3 +107,56 @@ def RequestRateLimiterFactory(rate):
                 return requests.get(url, headers=headers, allow_redirects=True)
 
     return RequestRateLimiter
+
+def create_auth_headers(bearer_token=None, api_key=None):
+    headers = {}
+    if bearer_token is not None:
+        headers['Authorization'] = f'Bearer {bearer_token}'
+    if api_key is not None:
+        headers['x-api-key'] = api_key
+        headers['Content-Type'] = 'application/json'
+
+    return headers
+
+def handle_json_response(**kwargs):
+    if kwargs is None:
+        raise ValueError('handle_json_response needs args (res, url, remaining_count)')
+
+    res = kwargs.get('res')
+    url = kwargs.get('url')
+    remaining_count = kwargs.get('remaining_count')
+
+    if res.status_code != 200:
+        print(f'[WARNING] request to {url} not successful: {res} {res.text}')
+        if res.status_code == 401:
+            print(f'[WARNING] request token expired or invalid - abandoning scrape')
+            return [[] for i in range(remaining_count)]
+
+        parsed_res = []
+    else:
+        try:
+            parsed_res = res.json()
+        except Exception as e:
+            print(f'[WARNING] Exception thrown on res.json() for {url}; {res.text} - skipping')
+            parsed_res = []
+
+    return parsed_res
+
+def run_multi_scraper(scraper, urls, num_processes, *args):
+    if num_processes < 1 or not isinstance(num_processes, int):
+        raise ValueError('num_processes must be a positive integer')
+
+    if num_processes is 1:
+        return scraper.run(urls, *args)
+
+    pool = Pool(processes=num_processes)
+
+    print(f'Executing scrape across max {num_processes} processes')
+    async_results = [pool.apply_async(scraper.run, (split, *args)) for split in np.array_split(urls, num_processes)]
+    pool_results = []
+    for res in async_results:
+        pool_results.extend(res.get()) # `get` is a blocking call
+
+    pool.close()
+
+    return pool_results

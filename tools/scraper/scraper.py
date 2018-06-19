@@ -26,7 +26,7 @@ class Scraper(ABC):
 class APIScraper(Scraper):
     '''Get JSON content returned by an API
     '''
-    def __init__(self, request_rate, request_verb=utils.RequestVerb.GET, query_params=None, headers=None, res_callback=None):
+    def __init__(self, request_rate, request_verb=utils.RequestVerb.GET, query_params=None, headers=None, res_callback=utils.handle_json_response):
         self.request_rate = request_rate
         self.request_verb = request_verb
         self.query_params = query_params
@@ -47,8 +47,7 @@ class APIScraper(Scraper):
             try:
                 request_url = f'{url}{self.query_params}' if self.query_params is not None else url
                 res = rrl.make_rate_limited_request(request_url, self.request_verb, headers=self.headers)
-                # TODO: how to pass in the right callback parameters
-                parsed_res = self.res_callback(res, url, total-count, rrl)
+                parsed_res = self.res_callback(res=res, url=url, remaining_count=total-count, rrl=rrl)
             except Exception as e:
                 # TODO: could provide 'skip' vs 'abandon' option for exceptions
                 print(f'[WARNING] Exception thrown - skipping {url}')
@@ -70,10 +69,10 @@ class DOMScraper(Scraper):
     def __init__(self, request_rate):
         super().__init__(request_rate)
 
-    def run(self, content_urls, content_selectors):
-        return self._scrape_dom(content_urls, content_selectors)
+    def run(self, content_urls, content_selectors, select_prop='text'):
+        return self._scrape_dom(content_urls, content_selectors, select_prop)
 
-    def _scrape_dom(self, content_urls, content_selectors):
+    def _scrape_dom(self, content_urls, content_selectors, select_prop):
         content = []
         total = len(content_urls)
         count = 0
@@ -87,7 +86,7 @@ class DOMScraper(Scraper):
                 print(f'[WARNING] No content found for {url}')
                 content.append(None)
             else:
-                content.append(utils.Soup.soup_to_content(url, soup, content_selectors))
+                content.append(utils.Soup.soup_to_content(url, soup, content_selectors, select_prop))
 
         return content
 
@@ -235,7 +234,13 @@ class Pipeline(object):
     def _construct_augmentation_url(self, url):
         return f'https://www.onenote.com/onaugmentation/clipperextract/v1.0/?renderMethod=extractAggressive&url={url}&lang=en-US'
 
-    def _handle_augmentation_response(self, res, url, remaining_count, rrl):
+    def _handle_augmentation_response(self, **kwargs):
+        if kwargs is None:
+            raise ValueError('_handle_augmentation_response needs args (res, url)')
+
+        res = kwargs.get('res')
+        url = kwargs.get('url')
+
         if res.status_code is not 200:
             print(f'[WARNING] request to {url} not successful: {res}')
             return None

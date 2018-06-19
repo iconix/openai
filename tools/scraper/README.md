@@ -20,20 +20,28 @@ _Note_: No content will be returned from the above example: the AugmentationAPI 
 
     python -u scraper.py scrape_content run  --scrape_method=DOM --content_urls='["https://www.epicurious.com/recipes/food/views/rhubarb-custard-cake"]' --content_selectors='["div[itemprop=\"description\"]", "div[itemprop=\"recipeInstructions\"] .preparation-groups"]'
 
-### Run HypeM
+### Get reviews
 
-`time_machine`:
+Get popular songs from the past on HypeM with `time_machine`:
 
-    python -u hypem.py time_machine <hypem_key> --request_rate=1 --out_file=time_machine_5yrs.json --days_from_start=1825
+    python -u reviews.py time_machine <hypem_key> --request_rate=1 --out_file=time_machine_5yrs.json --days_from_start=1825
 
-`song_blogs`:
+Get blogs that talked about popular songs on HypeM with `song_blogs`:
 
-    python -u hypem.py song_blogs time_machine_5yrs.json --request_rate=2 --out_file=song_blogs_5yrs.json --num_processes=4
+    python -u reviews.py song_blogs time_machine_5yrs.json --request_rate=2 --out_file=song_blogs_5yrs.json --num_processes=4
 
-`extern_song_ids`:
+Get Spotify and/or Genius ids for songs with HypeM ids with `extern_song_ids`:
 
-    python -u hypem.py extern_song_ids cleaned_songlist_sample.json --spotify_token=<spotify_token> --genius_token=<genius_token> --request_rate=3 --out_file=songids_sample.json
+    python -u reviews.py extern_song_ids cleaned_songlist_sample.json --spotify_token=<spotify_token> --genius_token=<genius_token> --request_rate=3 --out_file=songids_sample.json
 
-`article`:
+Get reviews of URLs with `review`:
 
-    python -u hypem.py article bloglist_sample.json <mercury_key> --request_rate=8 --out_file=blog_content_sample.json --num_processes=8
+    python -u reviews.py review bloglist_sample.json <mercury_key> --request_rate=8 --out_file=blog_content_sample.json --num_processes=8
+
+### Get features
+
+Get song genre and description with `genius`:
+    python -u features.py genius songids_5yrs.json <genius_token> --request-rate=8 --out_file=song_features_genius_5yrs.json
+
+Get batched audio features with `spotify`:
+    python -u features.py spotify song_features_genius_5yrs.json <spotify_token> --request-rate=1 --out_file=song_features_5yrs.json
