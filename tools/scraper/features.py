@@ -3,14 +3,15 @@ import json
 import math
 import numpy as np
 import pandas as pd
+import re
 import scraper
 import utils
 
 def spotify(songids_file, spotify_token, request_rate=0.25, out_file=None, num_processes=1):
     songids_df = pd.read_json(songids_file)
 
-    # get non-zero genius ids that have a non-empty corresponding spotify id
-    songids_df = songids_df.loc[(~songids_df.spotify_id.isna()) & (songids_df.genius_id != 0)]
+    # get non-empty spotify ids
+    songids_df = songids_df.loc[(~songids_df.spotify_id.isna())]
     relevant_spotify_ids = songids_df.spotify_id
 
     # spotify audio features API can take up to 100 ids at a time
@@ -39,8 +40,8 @@ def spotify(songids_file, spotify_token, request_rate=0.25, out_file=None, num_p
 def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_processes=1):
     songids_df = pd.read_json(songids_file)
 
-    # get non-zero genius ids that have a non-empty corresponding spotify id
-    songids_df = songids_df.loc[(~songids_df.spotify_id.isna()) & (songids_df.genius_id != 0)]
+    # get genius ids that have a non-empty corresponding spotify id
+    songids_df = songids_df.loc[~songids_df.spotify_id.isna()]
     relevant_genius_ids = songids_df.genius_id
 
     # get genius song urls
@@ -54,7 +55,7 @@ def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_pro
     dom_s = scraper.DOMScraper(request_rate)
     dom_results = utils.run_multi_scraper(dom_s, song_urls, num_processes, ['meta[itemprop="page_data"]'], 'content')
 
-    songids_df = songids_df.assign(genre=lambda x:None, desc=lambda x:None)
+    songids_df = songids_df.assign(genres=lambda x:None, desc=lambda x:None)
 
     h = html2text.HTML2Text()
     h.ignore_links = True
@@ -62,7 +63,7 @@ def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_pro
 
     genres = []
     descs = []
-    tag_str = 'tag:'
+    regex = r'tag:([^,]+)'
     for content in dom_results:
         if content is None:
             genres.append(None)
@@ -72,13 +73,14 @@ def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_pro
         sections = json.loads(content)['chartbeat']['sections']
 
         try:
-            genre = sections[sections.find(tag_str) + len(tag_str):]
+            matches = re.finditer(regex, sections)
+            song_genres = [match.group(1) for match in matches]
         except Exception as e:
-            print(f'[WARNING] error getting song genre - setting to None')
+            print(f'[WARNING] error getting song genres - setting to None')
             print(e)
-            genre = None
+            song_genres = None
 
-        genres.append(genre)
+        genres.append(song_genres)
 
         try:
             desc = h.handle(json.loads(content)['song']['description']['html'])
@@ -89,7 +91,7 @@ def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_pro
 
         descs.append(desc)
 
-    songids_df.genre = genres
+    songids_df.genres = genres
     songids_df.desc = descs
 
     # TODO: desc == '\n\n?\n\n'

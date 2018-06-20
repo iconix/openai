@@ -40,8 +40,8 @@ Get reviews of URLs with `review`:
 
 ### Get features
 
-Get song genre and description with `genius`:
-    python -u features.py genius songids_5yrs.json <genius_token> --request-rate=8 --out_file=song_features_genius_5yrs.json
+Get audio features with `spotify`:
+    python -u features.py spotify songids_5yrs.json <spotify_token> --request-rate=1 --out_file=song_features_spotify_5yrs.json
 
-Get batched audio features with `spotify`:
-    python -u features.py spotify song_features_genius_5yrs.json <spotify_token> --request-rate=1 --out_file=song_features_5yrs.json
+Get song genre and description with `genius`:
+    python -u features.py genius song_features_spotify_5yrs.json <genius_token> --request-rate=8 --num_processes=8 --out_file=song_features_5yrs.json
