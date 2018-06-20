@@ -36,7 +36,7 @@ def review(bloglist_file, api_key, request_rate=0.25, out_file=None, num_process
                 'lead_image_url': None,
                 'content': '',
                 'next_page_url': None,
-                'url': bloglist_df.loc[i, 'url'],
+                'url': None,
                 'domain': None,
                 'excerpt': None,
                 'word_count': 0,
@@ -44,6 +44,8 @@ def review(bloglist_file, api_key, request_rate=0.25, out_file=None, num_process
                 'total_pages': None,
                 'rendered_pages': None
             }
+
+        res['orig_url'] = bloglist_df.loc[i, 'url']
 
         h = html2text.HTML2Text()
         h.ignore_links = True
