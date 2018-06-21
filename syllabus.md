@@ -8,7 +8,7 @@ Design my own syllabus for self-study during the program.
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
 
-[[June 8 blog post](https://iconix.github.io/career/2018/06/08/scholar-week1.html)]
+[[June 8 blog post](https://iconix.github.io/dl/2018/06/08/scholar-week1.html)]
 
 _Resources_:
 
@@ -28,6 +28,8 @@ _Optional_:
 # Week 2: LSTMs, part 1
 
 ## Define metrics for evaluating language model (LM) output; train an RNN (LSTM) on some sequential text data
+
+[[June 15 blog post](https://iconix.github.io/dl/2018/06/15/scholar-week2.html)]
 
 _Resources_:
 
