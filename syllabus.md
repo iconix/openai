@@ -8,7 +8,7 @@ Design my own syllabus for self-study during the program.
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
 
-[[June 8 blog post](https://iconix.github.io/dl/2018/06/08/scholar-week1.html)]
+[[June 8 blog post](https://iconix.github.io/dl/2018/06/08/scholar-week1)]
 
 _Resources_:
 
@@ -29,7 +29,7 @@ _Optional_:
 
 ## Define metrics for evaluating language model (LM) output; train an RNN (LSTM) on some sequential text data
 
-[[June 15 blog post](https://iconix.github.io/dl/2018/06/15/scholar-week2.html)]
+[[June 15 blog post](https://iconix.github.io/dl/2018/06/15/scholar-week2)]
 
 _Resources_:
 
@@ -49,7 +49,12 @@ _Optional_:
 
 # Week 3: LSTMs, part 2
 
-## Modify the model to take type (genre? complex song representation?) as input, see if text improves!
+## Modify the LSTM to take context as part of the input and see if text improves!
+
+- Genres from Genius.com
+- Audio features from [Spotify](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/)
+
+[[June 22 blog post](https://iconix.github.io/dl/2018/06/22/scholar-week3)]
 
 _Resources_:
 
@@ -161,12 +166,12 @@ _Note that the Week 8 project will lead directly into my final (4-week) project!
 - Structured, topical, specific to attributes of the song (similar to ‘essay writing’ goals).
 - Conditioned on song representation, source blog (?), sentiment...
     - Could choose a limited set of source blogs ("voices"): e.g., Pitchfork, most consistent blogger on HypeM Time Machine, etc.
-- Datasets: blog scrape, Spotify API track [audio analysis](https://beta.developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) and [audio features](https://beta.developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/), Genius API’s [song](https://docs.genius.com/#songs-h2) tags, description, lyrics
+- Datasets: blog scrape, Spotify API track [audio analysis](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) and [audio features](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/), Genius API’s [song](https://docs.genius.com/#songs-h2) tags, description, lyrics
 
 ## Lyric generation
 
 - Structured, topical, specific to attributes of the song. Genius annotate-ability as a measure of interesting-ness (?)
 - Conditioned on song representation
-- Datasets: [https://www.kaggle.com/rakannimer/billboard-lyrics](https://www.kaggle.com/rakannimer/billboard-lyrics), Spotify API track [audio analysis](https://beta.developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) and [audio features](https://beta.developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/), Genius API’s [song](https://docs.genius.com/#songs-h2) tags, description
+- Datasets: [https://www.kaggle.com/rakannimer/billboard-lyrics](https://www.kaggle.com/rakannimer/billboard-lyrics), Spotify API track [audio analysis](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-analysis/) and [audio features](https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/), Genius API’s [song](https://docs.genius.com/#songs-h2) tags, description
 
 What do I mean by _song representation_? I want to encode data from the Spotify/Genius knowledge graph for the song (e.g., title, genre, similarity to other songs, audio features, lyrics, description...) and use it to condition/seed the generated text.
