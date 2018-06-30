@@ -35,7 +35,7 @@ _Resources_:
 
 1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapters 10 (sequence modeling) and 11 (practical methodology)
 2.  Graves, A. (2013). _Generating sequences with recurrent neural networks_. [[paper](https://arxiv.org/abs/1308.0850)]
-3.  Merity, S., Keskar, N. S., Socher, R. _Regularizing and Optimizing LSTM Language Models_. [[paper](https://arxiv.org/abs/1708.02182)] [[code](https://github.com/salesforce/awd-lstm-lm)]
+3.  Merity, S., Keskar, N. S., Socher, R (2017). _Regularizing and Optimizing LSTM Language Models_. [[paper](https://arxiv.org/abs/1708.02182)] [[code](https://github.com/salesforce/awd-lstm-lm)]
 4.  PyTorch: Generating Names with a Character-Level RNN [[tutorial](https://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html)]
 5.  Deep Learning for NLP with PyTorch [[tutorial](https://pytorch.org/tutorials/beginner/deep_learning_nlp_tutorial.html)]
 6.  [_Natural Language Processing_](https://github.com/jacobeisenstein/gt-nlp-class/blob/master/notes/eisenstein-nlp-notes.pdf) book (draft), chapter 6 (language models)
@@ -45,7 +45,7 @@ _Optional_:
 1.  course.fast.ai lessons [6](http://course.fast.ai/lessons/lesson6.html) (rnns) + [7](http://course.fast.ai/lessons/lesson7.html) (grus, lstms)
 2.  Karpathy, A. (2015). _Visualizing and Understanding Recurrent Networks_. [[video](https://skillsmatter.com/skillscasts/6611-visualizing-and-understanding-recurrent-networks)] [[paper](https://arxiv.org/abs/1506.02078)]
 3.  Colah, C. (2014). _Deep Learning, NLP, and Representations_. [[blog](http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/)]
-4.  Bengio, Y. _A Neural Probabilistic Language Model_. [[blog](http://www.scholarpedia.org/article/Neural_net_language_models)] [[paper](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)]
+4.  Bengio, Y (2003). _A Neural Probabilistic Language Model_. [[blog](http://www.scholarpedia.org/article/Neural_net_language_models)] [[paper](http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)]
 
 # Week 3: LSTMs, part 2
 
@@ -74,16 +74,17 @@ _Resources_:
 
 1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 14 (autoencoders)
 2.  Sutskever, I., Vinyals, O., and Le, Q. V. (2014). _Sequence to sequence learning with neural networks_. [[paper](https://arxiv.org/abs/1409.3215)]
-3.  PyTorch: Translation with a Sequence to Sequence Network and Attention [[tutorial](https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html)]
-4.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
-5.  Introduction to Variational Autoencoders [[video](https://youtu.be/9zKuYvjFFS8)]
-6.  Kingma, D.P., Welling, M. _Auto-Encoding Variational Bayes_. [[paper](https://arxiv.org/abs/1312.6114)]
+3.  Bowman, S. R., Vilnis, L., Vinyals, O., Dai, A.M., Jozefowicz, R., Bengio, S (2016). _Generating Sentences from a Continuous Space_. [[paper](https://arxiv.org/abs/1511.06349)]
+4.  Introduction to Variational Autoencoders [[video](https://youtu.be/9zKuYvjFFS8)]
+5.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
 
 _Optional_:
 
-1.  How to summarize text and generate features using seq2seq models [[tutorial](https://towardsdatascience.com/how-to-create-data-products-that-are-magical-using-sequence-to-sequence-models-703f86a231f8)]
-2.  Bowman, S. R., Vilnis, L., Vinyals, O., Dai, A.M., Jozefowicz, R., Bengio, S. _Generating Sentences from a Continuous Space_. [[paper](https://arxiv.org/abs/1511.06349)]
-3.  OpenAI: Generative Models [[blog](https://blog.openai.com/generative-models/)]
+1.  OpenAI: Generative Models [[blog](https://blog.openai.com/generative-models/)]
+2.  Introducing Variational Autoencoders (in Prose and Code) [[blog](http://blog.fastforwardlabs.com/2016/08/12/introducing-variational-autoencoders-in-prose-and.html)]
+3. Under the Hood of the Variational Autoencoder (in Prose and Code) [[blog](http://blog.fastforwardlabs.com/2016/08/22/under-the-hood-of-the-variational-autoencoder-in.html)]
+4.  Kingma, D.P., Welling, M (2014). _Auto-Encoding Variational Bayes_. [[paper](https://arxiv.org/abs/1312.6114)]
+5.  Practical PyTorch: Translation with a Sequence to Sequence Network and Attention [[tutorial](https://github.com/spro/practical-pytorch/blob/master/seq2seq-translation/seq2seq-translation-batched.ipynb)]
 
 # Week 5: Classification with Attention
 
@@ -115,11 +116,15 @@ _Resources_:
 1.  Distill.pub: The Building Blocks of Interpretability [[blog](https://distill.pub/2018/building-blocks/)]
 2.  DeepMind: Understanding deep learning through neuron deletion [[blog](https://deepmind.com/blog/understanding-deep-learning-through-neuron-deletion/)]
 3.  Ross, A. S., Hughes, M. C., Doshi-Velez, F. _Right for the Right Reasons: Training Differentiable Models by Constraining their Explanations_. [input gradients [paper](https://arxiv.org/abs/1703.03717)]
+4. "Many opportunities for discrimination in deploying machine learning systems" by Hal Daumé III [[blog](https://nlpers.blogspot.com/2018/06/many-opportunities-for-discimination-in.html)]
+5. How neural networks learn - Part I: Feature Visualization [[video](https://www.youtube.com/watch?v=McgxRxi2Jqo)]
 
 _Optional_:
 
 1.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime)] [[paper](https://arxiv.org/abs/1602.04938)]
 2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor)] [[paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
+3. "Awesome Interpretable Machine Learning": an opinionated list of resources facilitating model interpretability (introspection, simplification, visualization, explanation) [[repo](https://github.com/lopusz/awesome-interpretable-machine-learning)]
+
 
 # Week 7: Model interpretability, part 2
 
