@@ -4,6 +4,9 @@ Design my own syllabus for self-study during the program.
 
 ## _themes_: techniques in generative text; learning song representations; language/sequence modeling enhanced by reinforcement learning or GANs
 
+[[OpenAI Scholars intro blog post](https://iconix.github.io/dl/2018/05/30/openai-scholar)]
+[[Designing a syllabus blog post](https://iconix.github.io/dl/2018/06/03/project-ideation)]
+
 # Week 1: Setup
 
 ## Get and understand data; set up environment; build an n-gram model as a ‘shallow’ baseline; read LSTM, seq2seq, PyTorch tutorials
@@ -69,6 +72,8 @@ _Resources_:
 # Week 4: seq2seq
 
 ## Train a seq2seq model with VAE loss; compare to LSTM results
+
+[[June 29 blog post](https://iconix.github.io/dl/2018/06/29/energy-and-vae)]
 
 _Resources_:
 
