@@ -91,21 +91,23 @@ _Optional_:
 4.  Kingma, D.P., Welling, M (2014). _Auto-Encoding Variational Bayes_. [[paper](https://arxiv.org/abs/1312.6114)]
 5.  Practical PyTorch: Translation with a Sequence to Sequence Network and Attention [[tutorial](https://github.com/spro/practical-pytorch/blob/master/seq2seq-translation/seq2seq-translation-batched.ipynb)]
 
-# Week 5: Classification with Attention
+# Week 5: Classification and Attention
 
-## Adapt vanilla LSTM to do classification with attention + use to interpret what model has learned
+## Use LSTM-LM transfer learning to do classification; learn all about attention
+
+[[July 6 blog post](https://iconix.github.io/dl/2018/07/06/not-enough-attention)]
 
 _Resources_:
 
-1.  Bahdanau, D., Cho, K., Bengio, Y. _Neural Machine Translation by Jointly Learning to Align and Translate_. [[paper](https://arxiv.org/abs/1409.0473)]
-2.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
-3.  Distill.pub: Attention and Augmented Recurrent Neural Networks [[blog](https://distill.pub/2016/augmented-rnns/)]
+1.  Bahdanau, D., Cho, K., Bengio, Y (2014). _Neural Machine Translation by Jointly Learning to Align and Translate_. [[paper](https://arxiv.org/abs/1409.0473)]
+2.  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., Polosukhin, I (2017). _Attention Is All You Need_. [transformer [paper](https://arxiv.org/abs/1706.03762)] [[blog](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)]
+3.  course.fast.ai lesson [11](http://course.fast.ai/lessons/lesson11.html) (seq2seq, attention)
+4.  Distill.pub: Attention and Augmented Recurrent Neural Networks [[blog](https://distill.pub/2016/augmented-rnns/)]
 
 _Optional_:
 
-1.  Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., Polosukhin, I. _Attention Is All You Need_. [transformer [paper](https://arxiv.org/abs/1706.03762)] [[blog](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)]
-2.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
-3.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
+1.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
+2.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
 
 # Week 6: Model interpretability, part 1
 
