@@ -106,8 +106,9 @@ _Resources_:
 
 _Optional_:
 
-1.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
-2.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
+1.  Howard, J., Ruder, S (2018). _Universal Language Model Fine-tuning for Text Classification_. [[paper](https://arxiv.org/pdf/1801.06146.pdf)] [[blog](http://nlp.fast.ai/classification/2018/05/15/introducting-ulmfit.html)] [[code](https://github.com/fastai/fastai/tree/master/courses/dl2/imdb_scripts)]
+2.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
+3.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
 
 # Week 6: Model interpretability, part 1
 
