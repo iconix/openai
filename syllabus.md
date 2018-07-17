@@ -106,7 +106,7 @@ _Resources_:
 
 _Optional_:
 
-1.  Howard, J., Ruder, S (2018). _Universal Language Model Fine-tuning for Text Classification_. [[paper](https://arxiv.org/pdf/1801.06146.pdf)] [[blog](http://nlp.fast.ai/classification/2018/05/15/introducting-ulmfit.html)] [[code](https://github.com/fastai/fastai/tree/master/courses/dl2/imdb_scripts)]
+1.  Howard, J., Ruder, S (2018). _Universal Language Model Fine-tuning for Text Classification_. [[paper](https://arxiv.org/abs/1801.06146)] [[blog](http://nlp.fast.ai/classification/2018/05/15/introducting-ulmfit.html)] [[code](https://github.com/fastai/fastai/tree/master/courses/dl2/imdb_scripts)]
 2.  How to Visualize Your Recurrent Neural Network with Attention in Keras [[blog](https://medium.com/datalogue/attention-in-keras-1892773a4f22)]
 3.  [textgenrnn](https://github.com/minimaxir/textgenrnn)
 
@@ -122,16 +122,16 @@ _Optional_:
 _Resources_:
 
 1.  Distill.pub: The Building Blocks of Interpretability [[blog](https://distill.pub/2018/building-blocks/)]
-2.  DeepMind: Understanding deep learning through neuron deletion [[blog](https://deepmind.com/blog/understanding-deep-learning-through-neuron-deletion/)]
+2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime)] [[paper](https://arxiv.org/abs/1602.04938)]
 3.  Ross, A. S., Hughes, M. C., Doshi-Velez, F. _Right for the Right Reasons: Training Differentiable Models by Constraining their Explanations_. [input gradients [paper](https://arxiv.org/abs/1703.03717)]
-4. "Many opportunities for discrimination in deploying machine learning systems" by Hal Daumé III [[blog](https://nlpers.blogspot.com/2018/06/many-opportunities-for-discimination-in.html)]
-5. How neural networks learn - Part I: Feature Visualization [[video](https://www.youtube.com/watch?v=McgxRxi2Jqo)]
+4.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor)] [[paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
+5.  "Many opportunities for discrimination in deploying machine learning systems" by Hal Daumé III [[blog](https://nlpers.blogspot.com/2018/06/many-opportunities-for-discimination-in.html)]
 
 _Optional_:
 
-1.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime)] [[paper](https://arxiv.org/abs/1602.04938)]
-2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor)] [[paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
-3. "Awesome Interpretable Machine Learning": an opinionated list of resources facilitating model interpretability (introspection, simplification, visualization, explanation) [[repo](https://github.com/lopusz/awesome-interpretable-machine-learning)]
+1.  "Awesome Interpretable Machine Learning": an opinionated list of resources facilitating model interpretability (introspection, simplification, visualization, explanation) [[repo](https://github.com/lopusz/awesome-interpretable-machine-learning)]
+2.  How neural networks learn - Part I: Feature Visualization [[video](https://www.youtube.com/watch?v=McgxRxi2Jqo)]
+3.  DeepMind: Understanding deep learning through neuron deletion [[blog](https://deepmind.com/blog/understanding-deep-learning-through-neuron-deletion/)]
 
 
 # Week 7: Model interpretability, part 2
