@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VAE Demo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div style="text-align: left;">
+    <div id="sketch"></div>
+  </div>
+</body>
+<script src="vae_demo.js"></script>
+<script>
+  var interesting_car = [2, 5, 6, 9, 10, 15, 17, 18, 20, 21, 23, 25, 26, 28, 29];
+  var car_vae = {
+    data_dir: 'data/',
+    div_name: 'sketch',
+    min_range: 0,
+    max_range: 5
+  };
+  var custom_p5 = new p5(vae_demo(car_vae), car_vae.div_name);
+</script>
+</html>
