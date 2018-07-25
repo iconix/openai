@@ -125,7 +125,6 @@ _Resources_:
 2.  Ribeiro, M.T., Singh, S., Guestrin, C. _Why Should I Trust You?: Explaining the Predictions of Any Classifier_. [LIME [project](https://github.com/marcotcr/lime)] [[paper](https://arxiv.org/abs/1602.04938)]
 3.  Ross, A. S., Hughes, M. C., Doshi-Velez, F. _Right for the Right Reasons: Training Differentiable Models by Constraining their Explanations_. [input gradients [paper](https://arxiv.org/abs/1703.03717)]
 4.  Ribeiro, M.T., Singh, S., Guestrin, C. _Anchors: High-Precision Model-Agnostic Explanations_. [Anchor [project](https://github.com/marcotcr/anchor)] [[paper](https://homes.cs.washington.edu/~marcotcr/aaai18.pdf)]
-5.  "Many opportunities for discrimination in deploying machine learning systems" by Hal Daumé III [[blog](https://nlpers.blogspot.com/2018/06/many-opportunities-for-discimination-in.html)]
 
 _Optional_:
 
@@ -142,10 +141,12 @@ _Optional_:
 - Inspect embeddings and latent dimensions, à la  [David Ha's World Models](https://worldmodels.github.io/)
 
 _Resources_:
-1.  Hardt, M., Price, E., Srebro, N. _Equality of Opportunity in Supervised Learning_. [[paper](https://arxiv.org/abs/1610.02413)]
-2.  World Models: Can agents learn inside of their own dreams? [[demo](https://worldmodels.github.io/)]
+1.  World Models: Can agents learn inside of their own dreams? [[demo](https://worldmodels.github.io/)]
+2.  "Many opportunities for discrimination in deploying machine learning systems" by Hal Daumé III [[blog](https://nlpers.blogspot.com/2018/06/many-opportunities-for-discimination-in.html)]
 
 _Optional_:
+
+1.  Hardt, M., Price, E., Srebro, N. _Equality of Opportunity in Supervised Learning_. [[paper](https://arxiv.org/abs/1610.02413)]
 
 # Week 8: Advanced topics
 
