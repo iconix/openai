@@ -114,10 +114,11 @@ _Optional_:
 
 ## Compare attention-based method of interpretability to other more explicit methods:
 
-- LIME/Anchor
+- LIME/Anchor/SHAP
 - Input gradients
-- Neural deletion
 - "Seeing what a neuron sees" à la Karpathy's char-rnn [[blog](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)] [[paper](https://arxiv.org/abs/1506.02078)]
+
+[[July 13 blog post](https://iconix.github.io/dl/2018/07/13/interpret-attn)]
 
 _Resources_:
 
@@ -135,10 +136,12 @@ _Optional_:
 
 # Week 7: Model interpretability, part 2
 
-## Study forms of bias in my models
+## Examine latent space and forms of bias in my models
 
-- Could start with selection bias from source text
+- Selection bias from source text
 - Inspect embeddings and latent dimensions, à la  [David Ha's World Models](https://worldmodels.github.io/)
+
+[[July 21 blog post](https://iconix.github.io/dl/2018/07/21/bias-and-space)]
 
 _Resources_:
 1.  World Models: Can agents learn inside of their own dreams? [[demo](https://worldmodels.github.io/)]
@@ -150,21 +153,19 @@ _Optional_:
 
 # Week 8: Advanced topics
 
-## Improve model with RL or a GAN discriminator
+## Improve VAE generations with a latent constraints GAN (LC-GAN)
 
 _Resources_:
 
-1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 20 (deep generative models)
-2.  Li, J., Monroe, W., Ritter, A., Galley, M., Gao, J., Jurafsky, D. _Deep Reinforcement Learning for Dialogue Generation_. [[paper](https://arxiv.org/abs/1606.01541)]
-3.  Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., and Bengio, Y. (2014). _Generative adversarial nets_. [[paper](https://arxiv.org/abs/1406.2661)]
-4.  PyTorch: Reinforcement Learning (DQN) tutorial [[tutorial](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)]
-5.  Yoav Goldberg. "Adversarial training for discrete sequences (like RNN generators) is hard" [[blog](https://medium.com/@yoav.goldberg/an-adversarial-review-of-adversarial-generation-of-natural-language-409ac3378bd7)]
-6.  course.fast.ai lesson [12](http://course.fast.ai/lessons/lesson12.html) (gans) + [13](http://course.fast.ai/lessons/lesson13.html) (gans, style transfer)
+1.  Engel, J., Hoffman, M., Roberts, A. (2017). _Latent Constraints: Learning to Generate Conditionally from Unconditional Generative Models_. [[paper](https://arxiv.org/abs/1711.05772)]
+2.  Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., Courville, A., and Bengio, Y. (2014). _Generative adversarial nets_. [[paper](https://arxiv.org/abs/1406.2661)]
+3.  Jaques, N., McCleary, J., Engel, J., Ha, D., Bertsch, F., Eck, D., Picard, R (2018). _Learning via social awareness: Improving a deep generative sketching model with facial feedback_. [[paper](https://arxiv.org/abs/1802.04877)]
+4.  course.fast.ai lesson [12](http://course.fast.ai/lessons/lesson12.html) (gans)
 
 _Optional_:
 
-1.  Jaques, N., Gu, S., Bahdanau, D., Hernández-Lobato, J. M., Turner, R. E., Eck, D. _Tuning Recurrent Neural Networks with Reinforcement Learning_ [[blog](https://magenta.tensorflow.org/2016/11/09/tuning-recurrent-networks-with-reinforcement-learning/)] [[paper](https://arxiv.org/abs/1611.02796)]
-2.  Arulkumaran, K., Deisenroth, M. P., Brundage, M., Bharath, A. A. _A Brief Survey of Deep Reinforcement Learning_. [[paper](https://arxiv.org/abs/1708.05866)]
+1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 20 (deep generative models)
+2.  Yoav Goldberg. "Adversarial training for discrete sequences (like RNN generators) is hard" [[blog](https://medium.com/@yoav.goldberg/an-adversarial-review-of-adversarial-generation-of-natural-language-409ac3378bd7)]
 
 **Fun extra blog post #2**: could digest Goldberg’s argument for why the “Adversarial Generation of Natural Language” paper isn’t worthwhile
 
