@@ -151,9 +151,11 @@ _Optional_:
 
 1.  Hardt, M., Price, E., Srebro, N. _Equality of Opportunity in Supervised Learning_. [[paper](https://arxiv.org/abs/1610.02413)]
 
-# Week 8: Advanced topics
+# Week 8: GANs
 
 ## Improve VAE generations with a latent constraints GAN (LC-GAN)
+
+[[July 28 blog post](https://iconix.github.io/dl/2018/07/28/lcgan)]
 
 _Resources_:
 
@@ -166,11 +168,6 @@ _Optional_:
 
 1.  [_Deep Learning_](http://www.deeplearningbook.org/) book, chapter 20 (deep generative models)
 2.  Yoav Goldberg. "Adversarial training for discrete sequences (like RNN generators) is hard" [[blog](https://medium.com/@yoav.goldberg/an-adversarial-review-of-adversarial-generation-of-natural-language-409ac3378bd7)]
-
-**Fun extra blog post #2**: could digest Goldberg’s argument for why the “Adversarial Generation of Natural Language” paper isn’t worthwhile
-
-- There was a bit of a [tweetstorm](https://twitter.com/yoavgo/status/872831207163265024) (that turned into a [blog post](https://medium.com/@yoav.goldberg/an-adversarial-review-of-adversarial-generation-of-natural-language-409ac3378bd7)) around Yoav Goldberg and his argument for why this "[Adversarial Generation of Natural Language](https://arxiv.org/abs/1705.10929)" paper is garbage, and why he is generally upset about deep learning practitioners coming to natural language and thinking they can “solve” it (particularly with GANs). Might be interesting to digest the debate in a blog post.
-- Related posts: post comments like [Hu's](https://medium.com/@zhitinghu/we-thank-yoav-for-the-comments-on-our-vae-generation-paper-titled-as-controllable-text-generation-73d8c8058bb6) and [Bahdanau's](https://medium.com/@dzmitrybahdanau/in-general-i-dont-want-to-participate-in-public-holy-wars-so-i-will-make-just-two-points-7f41e075e81e); Goldberg’s [clarifications](https://medium.com/@yoav.goldberg/clarifications-re-adversarial-review-of-adversarial-learning-of-nat-lang-post-62acd39ebe0d); Yann LeCun’s [response](https://www.facebook.com/yann.lecun/posts/10154498539442143) to Goldberg; Goldberg’s [response](https://medium.com/@yoav.goldberg/a-response-to-yann-lecuns-response-245125295c02) to LeCun
 
 _Note that the Week 8 project will lead directly into my final (4-week) project!_
 
