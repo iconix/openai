@@ -1,12 +1,10 @@
 # @deephypebot
-_Nadja Rhodes_
-
-_OpenAI Scholar Final Project_
+_Nadja Rhodes -- OpenAI Scholar Final Project_
 
 ## Description
 _tl;dr- generating conditional song reviews on Twitter._
 
-The [theme of my summer](https://iconix.github.io/dl/2018/06/03/project-ideation#finding-my-niche) as an OpenAI Scholar has been explorations around music + text. I find the language around music - manifested by hundreds of [“nice, small blogs”](https://www.theverge.com/2018/1/2/16840940/spotify-algorithm-music-discovery-mix-cds-resolution) on the internet - to be a deep and unique well of creative writing.
+The [theme of my summer](https://iconix.github.io/dl/2018/06/03/project-ideation#finding-my-niche) as an OpenAI Scholar has been explorations around music + text. I find the language around music - manifested by hundreds of ["nice, small blogs"](https://www.theverge.com/2018/1/2/16840940/spotify-algorithm-music-discovery-mix-cds-resolution) on the internet - to be a deep and unique well of creative writing.
 
 As such, my final project will pay homage to these labors of love on the web and attempt to **generate consistently good and entertaining new writing about songs, based on a set of characteristics about the song and knowledge of past human music writing**.
 
@@ -18,7 +16,7 @@ The project will culminate in a **Twitter bot (@deephypebot)** that will monitor
 
 ### Training data
 
-My training data consists of 35,000+ blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-reviews.
+My training data consists of 35,000+ blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., excluding "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to many post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-reviews.
 
 From there, I split the reviews into sentences, which are a good length for a _variational autoencoder_ (VAE) model to encode.
 
@@ -45,10 +43,12 @@ Once generations for a new proposed tweet are available, an email will be sent t
 ## Resources
 
 **Reading...**
-- “Starting an Open Source Project” by GitHub [[guide](https://opensource.guide/starting-a-project/)] - #oss
-- “Rules of Machine Learning: Best Practices for ML Engineering” by Google [[guide](https://developers.google.com/machine-learning/guides/rules-of-ml/)] - #eng
-- “Dockerizing a Python 3 Flask App Line-by-Line” by Zach Bloomquist [[guide](https://medium.com/bitcraft/dockerizing-a-python-3-flask-app-line-by-line-400aef1ded3a)] - #eng
-- “Make-A-Twitter-Bot Workshop” by Allison Parrish [[guide](https://gist.github.com/aparrish/3ee64d07f0a00b08618a)] - #twitterbot
+- "Starting an Open Source Project" by GitHub [[guide](https://opensource.guide/starting-a-project/)] - #oss
+- "Rules of Machine Learning: Best Practices for ML Engineering" by Google [[guide](https://developers.google.com/machine-learning/guides/rules-of-ml/)] - #eng
+- "Dockerizing a Python 3 Flask App Line-by-Line" by Zach Bloomquist [[guide](https://medium.com/bitcraft/dockerizing-a-python-3-flask-app-line-by-line-400aef1ded3a)] - #eng
+- "Build Your Own Twitter Bots!" [[code](https://github.com/handav/twitter-bots)] [[video](https://egghead.io/courses/create-your-own-twitter-bots)] - #twitterbot
+    - A class by fellow Scholar, [Hannah Davis](http://www.hannahishere.com/)!
+- "Make-A-Twitter-Bot Workshop" by Allison Parrish [[guide](https://gist.github.com/aparrish/3ee64d07f0a00b08618a)] - #twitterbot
 - Sohn, K., Yan, X., Lee, H. Learning Structured Output Representation using Deep Conditional Generative Models [CVAE [paper](http://papers.nips.cc/paper/5775-learning-structured-output-representation-using-deep-conditional-generative-models.pdf)] -[](http://papers.nips.cc/paper/5775-learning-structured-output-representation-using-deep-conditional-generative-models.pdf)#vae
 - Bernardo, F., Zbyszynski, M., Fiebrink, R., Grierson, M. (2016). Interactive Machine Learning for End-User Innovation [[paper](http://research.gold.ac.uk/19767/)] - #onlinelearning
 
@@ -67,7 +67,7 @@ Once generations for a new proposed tweet are available, an email will be sent t
     - Metric definitions; benchmarking/baselines
         - Perplexity
         - Using discriminators to measure accuracy? (real/fake, genre, etc.)
-    - Chat with Natasha and Jesse about fancier modeling for later weeks
+    - Chat with Natasha and Jesse about more sophisticated modeling for later weeks
 - LC-GAN experiments
     - Experiment with solo discriminator vs joint: e.g., realism vs realism + readability/grammaticality
     - Investigate differences in training discriminator on Gaussian random z’s vs. sample-based z’s
@@ -88,7 +88,7 @@ Once generations for a new proposed tweet are available, an email will be sent t
 - Email -&gt; Tweet pipeline
 - [Bonus] Likes -&gt; Model pipeline
 
-**August 17**: _Fancier modeling_
+**August 17**: _More sophisticated modeling_
 
 - Experiments on conditioning VAE vs. LC-GAN on topic models (LDA), sentiment (deepmoji), audio features/genre...
     - Would be cool to demonstrate Bayesian techniques and understanding through LDA
@@ -108,5 +108,8 @@ _Mentor: [Natasha Jaques](https://twitter.com/natashajaques)_
 
 - Assistance in reasoning over neural net architecture decisions
 - Connection to LC-GAN paper author, Jesse Engel, for queries
+- Assistance in understanding how LDA works
+- Assistance in debugging model training
+- Suggestions for model enhancement
 
 ### _Follow my progress this summer with this blog's [#openai](https://iconix.github.io/tags/openai) tag, or on [GitHub](https://github.com/iconix/openai)._
