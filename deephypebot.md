@@ -16,7 +16,7 @@ The project will culminate in a **Twitter bot (@deephypebot)** that will monitor
 
 ### Training data
 
-My training data consists of 35,000+ blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., excluding "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to many post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-reviews.
+My training data consists of 25,000+ blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., excluding "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to many post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-reviews.
 
 From there, I split the reviews into sentences, which are a good length for a _variational autoencoder_ (VAE) model to encode.
 
@@ -45,6 +45,7 @@ Once generations for a new proposed tweet are available, an email will be sent t
 **Reading...**
 - "Starting an Open Source Project" by GitHub [[guide](https://opensource.guide/starting-a-project/)] - #oss
 - "Rules of Machine Learning: Best Practices for ML Engineering" by Google [[guide](https://developers.google.com/machine-learning/guides/rules-of-ml/)] - #eng
+- Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M (2014). Machine Learning: The High-Interest Credit Card of Technical Debt [[paper](https://ai.google/research/pubs/pub43146)] - #eng
 - "Dockerizing a Python 3 Flask App Line-by-Line" by Zach Bloomquist [[guide](https://medium.com/bitcraft/dockerizing-a-python-3-flask-app-line-by-line-400aef1ded3a)] - #eng
 - "Build Your Own Twitter Bots!" [[code](https://github.com/handav/twitter-bots)] [[video](https://egghead.io/courses/create-your-own-twitter-bots)] - #twitterbot
     - A class by fellow Scholar, [Hannah Davis](http://www.hannahishere.com/)!

@@ -7,7 +7,45 @@ import re
 import scraper
 import utils
 
-def spotify(songids_file, spotify_token, request_rate=0.25, out_file=None, num_processes=1):
+def spotify_genre(songids_file, spotify_token, request_rate=0.25, out_file=None, num_processes=1):
+    # TODO: unlikely that the sequential calls to get artist ids and get genres will finish in under
+    # an hour, so use a token with longer expiration, or refresh your token between tasks.
+
+    songids_df = pd.read_json(songids_file)
+
+    # get non-empty spotify ids
+    songids_df = songids_df.loc[(~songids_df.spotify_id.isna())]
+    relevant_spotify_ids = songids_df.spotify_id
+
+    # get spotify track urls
+    track_api_urls = [_construct_spotify_track_url(id) for id in relevant_spotify_ids]
+
+    headers = utils.create_auth_headers(bearer_token=spotify_token)
+    api_s = scraper.APIScraper(request_rate, headers=headers)
+    api_results = utils.run_multi_scraper(api_s, track_api_urls, num_processes)
+
+    # get spotify artist urls - just take first artist into account
+    artist_ids = [res['artists'][0]['id'] if 'artists' in res else '' for res in api_results]
+    #artist_ids = songids_df.artist_id
+    artist_api_urls = [_construct_spotify_artist_url(id) for id in artist_ids]
+
+    api_s = scraper.APIScraper(request_rate, headers=headers)
+    api_results = utils.run_multi_scraper(api_s, artist_api_urls, num_processes)
+
+    genres = [res['genres'] if len(res) else [] for res in api_results]
+
+    songids_df = songids_df.assign(artist_id=lambda x: None)
+    songids_df = songids_df.assign(spotify_genres=lambda x: None)
+
+    songids_df.artist_id = artist_ids
+    songids_df.spotify_genres = genres
+
+    if out_file is not None:
+        songids_df.to_json(out_file, orient='records')
+    else:
+        print(songids_df.to_json(orient='records'))
+
+def spotify_audio(songids_file, spotify_token, request_rate=0.25, out_file=None, num_processes=1):
     songids_df = pd.read_json(songids_file)
 
     # get non-empty spotify ids
@@ -100,6 +138,12 @@ def genius(songids_file, genius_token, request_rate=0.25, out_file=None, num_pro
         songids_df.to_json(out_file, orient='records')
     else:
         print(songids_df.to_json(orient='records'))
+
+def _construct_spotify_artist_url(id):
+    return f'https://api.spotify.com/v1/artists/{id}'
+
+def _construct_spotify_track_url(id):
+    return f'https://api.spotify.com/v1/tracks/{id}'
 
 def _construct_spotify_audio_features_url(ids):
     # maximum: 100 IDs
