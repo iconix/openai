@@ -2,7 +2,7 @@
 _Nadja Rhodes -- OpenAI Scholar Final Project_
 
 ## Description
-_tl;dr- generating conditional song reviews on Twitter._
+_tl;dr- generating conditioned music commentary on Twitter._
 
 The [theme of my summer](https://iconix.github.io/dl/2018/06/03/project-ideation#finding-my-niche) as an OpenAI Scholar has been explorations around music + text. I find the language around music - manifested by hundreds of ["nice, small blogs"](https://www.theverge.com/2018/1/2/16840940/spotify-algorithm-music-discovery-mix-cds-resolution) on the internet - to be a deep and unique well of creative writing.
 
@@ -16,13 +16,13 @@ The project will culminate in a **Twitter bot (@deephypebot)** that will monitor
 
 ### Training data
 
-My training data consists of 25,000+ blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., excluding "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to many post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-reviews.
+My training data consists of ~20,000 blog posts with writing about individual songs. The count started at about 80K post links from 5 years of popular songs on the music blog aggregator [Hype Machine](https://hypem.com/) - then I filtered for English, non-aggregated (i.e., excluding "round up"-style posts about multiple songs) posts about songs that can be found on Spotify. There was some additional attrition due to many post links no longer existing. I did some additional manual cleanup of symbols, markdown, and writing that I deemed _non_-commentary.
 
-From there, I split the reviews into sentences, which are a good length for a _variational autoencoder_ (VAE) model to encode.
+From there, I split the commentary into sentences, which are a good length for a _variational autoencoder_ (VAE) model to encode.
 
 ### Neural network
 
-A _language model_ (LM) is an approach to generating text by estimating the probability distribution over sequences of linguistic units (characters, words, sentences). This project is centered around a _sequence-to-sequence variational autoencoder_ (seq2seq VAE) backbone that generates text with a _latent constraints generative adversarial network_ (LC-GAN) head that helps control aspects of the text generated.
+A _language model_ (LM) is an approach to generating text by estimating the probability distribution over sequences of linguistic units (characters, words, sentences). This project centers around a _sequence-to-sequence variational autoencoder_ (seq2seq VAE) model that generates text with an additional _latent constraints generative adversarial network_ (LC-GAN) model that helps control aspects of the text generated.
 
 The seq2seq VAE consists of an LSTM-based encoder and decoder, and once trained, the decoder can be used independently as a language model conditioned on latent space `z` (more on seq2seq VAEs [here](https://iconix.github.io/dl/2018/06/29/energy-and-vae#seq2seq-vae-for-text-generation)).
 
