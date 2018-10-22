@@ -173,6 +173,12 @@ _Note that the Week 8 project will lead directly into my final (4-week) project!
 
 # Final project ideas
 
+[[Project proposal](https://iconix.github.io/dl/2018/08/03/deephypebot)]
+
+[[Project notes 1: genre and inspiration](https://iconix.github.io/dl/2018/08/14/project-notes-1)] [[Project notes 2: topic modeling](https://iconix.github.io/dl/2018/08/24/project-notes-2)]
+
+[[Project summary](https://iconix.github.io/dl/2018/08/31/deephypebot-final)]
+
 ## Music blog review generation
 
 - Structured, topical, specific to attributes of the song (similar to ‘essay writing’ goals).
